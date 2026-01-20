@@ -1,0 +1,16 @@
+Create a single-page app in a single HTML file with the following requirements:
+- Name: Maze
+- Goal: Get your character through the maze.
+- The maze is placed in a 20x20 cell grid. 
+- The entrance is at the upper-left corner of the grid.
+- The exit is at the lower-right corner of the grid.
+- To create the maze on each game, it uses the Depth First Search. The elements that block paths in the maze are referred to as walls.
+- Every square in the maze should be reachable, due to completion of Depth First Search.
+- The map is shown in the center of the screen. The ground is green like grass. The walls are red like bricks.
+- The player of the game is a gray arrow. The tip of the arrow points forward.
+- If the player types the left arrow, the arrow turns 90 degrees to the left.
+- If the player types the right arrow, the arrow turns 90 degrees to the right.
+- If the player types the up arrow, if there is not a wall in the way, it moves one square in the direction it points.
+
+
+

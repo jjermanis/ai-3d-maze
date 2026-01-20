@@ -1,0 +1,33 @@
+version 1	40 minutes dev	4 minutes code gen	6 minutes test		50 minutes total
+
+The goal is to go with a simple maze playing game. The point-of-view would be a standard 2D view,
+like you would see on a piece of paper. The game would use Depth First Search to create the map
+on a 20x20 grid. It would use a gray arrow as the player to move through the map. It would use
+the arrow keys: left and right to turn, and up to go forward (if not blocked). The initial 
+version looked nice, but had two bugs. One was the not all of the path was reachable. It was 
+almost all of it, maybe 98%. But it should be all. The other was that the arrow spun correctly.
+But moving forward? That was messed up. It would go if a different direction than expected, not
+in a predictable way. I focused on the directions. I tried several ways to adjust moving forward.
+I added debug info. It was confusing because the log matched the behavior, but did not line up
+to the code. 
+I tried generating again from scratch, with two small changes. One I made it a point to say "The 
+tip of the arrow points forward." I also added the sentence "Every square in the maze should be
+reachable." This worked! Both previous defects were resolved with these changes. The game is 
+playable as-is. Playable... but not the end goal.
+Since this game was regenerated from scratch, the UI looks different, and unfortunately worse.
+The game works, but there are several things to fix before moving on.
+
+
+TODO There are bugs about the rotation and location. Sometimes it will step pass it's square,
+	sometimes it will be in the wall. This needs to be fixed.d
+TODO "The player of the game is a gray arrow." Check that color - it really looks white.
+TODO "The walls are red like bricks." It is very red, off from a brick
+TODO There is character rotation animation that is odd. It often looks right, but sometime
+	flips around the other direction. Fix... are just get rid of the animation.
+TODO Add a new game, new maze button
+TODO I don't know for sure, but it seems like this is a long batch without decisions. Maybe
+	the maze has to start in a different spot. Maybe a different algorithm should be used.
+TODO Add the UI to make gradual map views, adding what can be seen.
+TODO Add a 3D view, based on the same map data, should side by side with 2D
+
+

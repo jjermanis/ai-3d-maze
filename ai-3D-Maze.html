@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Maze</title>
+<style>
+    body {
+        margin: 0;
+        background: #000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        color: white;
+        font-family: sans-serif;
+    }
+
+    #game {
+        display: grid;
+        grid-template-columns: repeat(20, 24px);
+        grid-template-rows: repeat(20, 24px);
+        gap: 0;
+    }
+
+    .cell {
+        width: 24px;
+        height: 24px;
+        background: #2e7d32; /* grass */
+        position: relative;
+        box-sizing: border-box;
+    }
+
+    .wall-top { border-top: 4px solid #b71c1c; }
+    .wall-right { border-right: 4px solid #b71c1c; }
+    .wall-bottom { border-bottom: 4px solid #b71c1c; }
+    .wall-left { border-left: 4px solid #b71c1c; }
+
+    #player {
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-bottom: 14px solid #aaa;
+        top: 4px;
+        left: 4px;
+        transform-origin: center 10px;
+        transition: transform 0.1s;
+    }
+</style>
+</head>
+<body>
+
+<div id="game"></div>
+
+<script>
+const SIZE = 20;
+const game = document.getElementById("game");
+
+let maze = [];
+let cells = [];
+let player = {
+    x: 0,
+    y: 0,
+    dir: 0 // 0=up, 1=right, 2=down, 3=left
+};
+
+// Initialize maze cells
+for (let y = 0; y < SIZE; y++) {
+    maze[y] = [];
+    cells[y] = [];
+    for (let x = 0; x < SIZE; x++) {
+        maze[y][x] = {
+            visited: false,
+            walls: [true, true, true, true]
+        };
+    }
+}
+
+// DFS maze generation
+function generateMaze(x, y) {
+    maze[y][x].visited = true;
+    const directions = [0,1,2,3].sort(() => Math.random() - 0.5);
+
+    for (let dir of directions) {
+        let nx = x, ny = y;
+        if (dir === 0) ny--;
+        if (dir === 1) nx++;
+        if (dir === 2) ny++;
+        if (dir === 3) nx--;
+
+        if (nx >= 0 && ny >= 0 && nx < SIZE && ny < SIZE && !maze[ny][nx].visited) {
+            maze[y][x].walls[dir] = false;
+            maze[ny][nx].walls[(dir + 2) % 4] = false;
+            generateMaze(nx, ny);
+        }
+    }
+}
+
+generateMaze(0, 0);
+
+// Render maze
+for (let y = 0; y < SIZE; y++) {
+    for (let x = 0; x < SIZE; x++) {
+        const cell = document.createElement("div");
+        cell.className = "cell";
+
+        const w = maze[y][x].walls;
+        if (w[0]) cell.classList.add("wall-top");
+        if (w[1]) cell.classList.add("wall-right");
+        if (w[2]) cell.classList.add("wall-bottom");
+        if (w[3]) cell.classList.add("wall-left");
+
+        game.appendChild(cell);
+        cells[y][x] = cell;
+    }
+}
+
+// Player element
+const playerEl = document.createElement("div");
+playerEl.id = "player";
+cells[0][0].appendChild(playerEl);
+
+function updatePlayer() {
+    playerEl.style.transform = `rotate(${player.dir * 90}deg)`;
+}
+
+function moveForward() {
+    const { x, y, dir } = player;
+    if (maze[y][x].walls[dir]) return;
+
+    if (dir === 0) player.y--;
+    if (dir === 1) player.x++;
+    if (dir === 2) player.y++;
+    if (dir === 3) player.x--;
+
+    cells[player.y][player.x].appendChild(playerEl);
+
+    if (player.x === SIZE - 1 && player.y === SIZE - 1) {
+        setTimeout(() => alert("YOU ESCAPED THE MAZE!"), 50);
+    }
+}
+
+document.addEventListener("keydown", e => {
+    if (e.key === "ArrowLeft") {
+        player.dir = (player.dir + 3) % 4;
+        updatePlayer();
+    }
+    if (e.key === "ArrowRight") {
+        player.dir = (player.dir + 1) % 4;
+        updatePlayer();
+    }
+    if (e.key === "ArrowUp") {
+        moveForward();
+    }
+});
+
+updatePlayer();
+</script>
+
+</body>
+</html>
