@@ -42,6 +42,11 @@ for (let y = 0; y < SIZE; y++) {
     }
 }
 
+// fog of war
+const seen = Array.from({ length: SIZE }, () =>
+    Array(SIZE).fill(false)
+);
+
 // DFS maze generation
 function dfs(x,y) {
     maze[y][x].visited = true;
@@ -76,11 +81,24 @@ function castRay(angle) {
         const y = player.y + 0.5 + sin * t;
         const cx = Math.floor(x);
         const cy = Math.floor(y);
-        if (cx<0||cy<0||cx>=SIZE||cy>=SIZE) return t;
-        if (maze[cy][cx].walls[0] && y < cy+0.01) return t;
-        if (maze[cy][cx].walls[2] && y > cy+0.99) return t;
-        if (maze[cy][cx].walls[3] && x < cx+0.01) return t;
-        if (maze[cy][cx].walls[1] && x > cx+0.99) return t;
+
+    // First: check bounds
+    if (cx < 0 || cy < 0 || cx >= SIZE || cy >= SIZE) {
+        return t;
+    }
+
+    // Second: check if the ray is blocked HERE
+    if (
+        maze[cy][cx].walls[0] && y < cy + 0.01 ||
+        maze[cy][cx].walls[2] && y > cy + 0.99 ||
+        maze[cy][cx].walls[3] && x < cx + 0.01 ||
+        maze[cy][cx].walls[1] && x > cx + 0.99
+    ) {
+        return t; // DO NOT mark this cell as seen    
+    }
+
+    // Third: now we know the cell is truly visible
+    seen[cy][cx] = true;    
     }
     return 20;
 }
@@ -111,6 +129,11 @@ function draw2D() {
     for (let y=0;y<SIZE;y++) for (let x=0;x<SIZE;x++) {
         const px=x*CELL, py=y*CELL;
         const w=maze[y][x].walls;
+        if (!seen[y][x]) {
+            ctx2.fillStyle = "#555";
+            ctx2.fillRect(px, py, CELL, CELL);
+            continue;
+        }
         if (w[0]) { ctx2.beginPath(); ctx2.moveTo(px,py); ctx2.lineTo(px+CELL,py); ctx2.stroke(); }
         if (w[1]) { ctx2.beginPath(); ctx2.moveTo(px+CELL,py); ctx2.lineTo(px+CELL,py+CELL); ctx2.stroke(); }
         if (w[2]) { ctx2.beginPath(); ctx2.moveTo(px,py+CELL); ctx2.lineTo(px+CELL,py+CELL); ctx2.stroke(); }

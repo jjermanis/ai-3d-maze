@@ -10,6 +10,8 @@ Create a single-page app in a single HTML file with the following requirements:
 - The map on the right is a 2D view of the map. The view looks like a typical 2D map. The ground is green like grass. The walls are red like bricks.
 - Controls are based on the 2D view on the right.
 - The player of the game is a gray arrow. The tip of the arrow points forward.
+- At the beginning, players will not see the entire maze on the 2D grid. At the beginning, all the squares show as gray.
+- If you can see some of a grid square in the 3D view, it will appear on the 2D view.
 - If the player types the left arrow, the arrow turns 90 degrees to the left.
 - If the player types the right arrow, the arrow turns 90 degrees to the right.
 - If the player types the up arrow, if there is not a wall in the way, it moves one square in the direction it points.

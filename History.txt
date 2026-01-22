@@ -35,6 +35,19 @@ It all works now! Actually playable! Many thing to add, but a nice start for sur
 with what it developed in limited time.
 
 
+version 3	17 minutes dev	2 minutes code gen	4 minutes test		1 hour 47
+
+This adds what I think is the biggest function for this initial version. To start, the 2D
+map shows the entire map. I want squares to appear only once they are seen directly as the
+arrow walks around the maze. This game VERY close to working on the first attempt. Things
+started gray, and showed the map when seen on the 3D view. But it is a little too clearly
+up: it seems to allow include 1 pixel behind the last wall. My theory was that when checking
+for how far a user can see on the 3D screen, would keep going until it crossed a wall. It 
+would add all of those to the 2D INCLUDING the last one past the wall. I wrote this up to
+Chat. It agree, and rewrote to check that a wall has been passed before asking then to be
+seen. This appeara perfect - it behaves as I expected. This, for sure, is a playable game.
+I will proceed with polishing up some UI before publishing Release #1.
+
 
 TODO Add a new game, new maze button
 TODO I don't know for sure, but it seems like this is a long maze with few decisions. Maybe
@@ -42,7 +55,12 @@ TODO I don't know for sure, but it seems like this is a long maze with few decis
 TODO "The walls are red like bricks." It is very red, off from a brick.
 	Similar, the 3D should include a brick view, not a big red wall.
 TODO "The player of the game is a gray arrow." Check that color - it really looks white.
-TODO Add the UI to make gradual map views, adding what can be seen.
 TODO I'm not sure why, or if it's real, but the walls seem a little round. Look into it.
+From Chat - exit visibility rules... there is no recognition making it to the end
+From Chat - Lock in this alignment with comments (future-proofing)
+From Chat - Add diagonal ray shading for better depth
+From Chat - Add a visible exit in the 3D view
+From Chat - Add a debug completely open 2D view at start (great for sanity checks)
+
 
 
