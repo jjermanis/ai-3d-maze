@@ -6,11 +6,18 @@ Create a single-page app in a single HTML file with the following requirements:
 - The exit is at the lower-right corner of the grid.
 - To create the maze on each game, it uses the Depth First Search. The elements that block paths in the maze are referred to as walls.
 - Every square in the maze should be reachable, due to completion of Depth First Search.
-- The map is shown in the center of the screen. The ground is green like grass. The walls are red like bricks.
+- There are two maps shown on the screen. They are different views of the same map.
+- The map on the right is a 2D view of the map. The view looks like a typical 2D map. The ground is green like grass. The walls are red like bricks.
+- Controls are based on the 2D view on the right.
 - The player of the game is a gray arrow. The tip of the arrow points forward.
 - If the player types the left arrow, the arrow turns 90 degrees to the left.
 - If the player types the right arrow, the arrow turns 90 degrees to the right.
 - If the player types the up arrow, if there is not a wall in the way, it moves one square in the direction it points.
+- The map on the left is a 3D view of the map. The ground is green grass. The walls are red bricks. The skies are blue.
+- On the 3D view of the map, the point of view is from the gray arrow. You cannot see the arrow in the picture - it is the arrow's point of view.
+- On the 3D view of the map, the point of view from the gray arrow is 5 feet tall. The red brick walls are 10 feet tall.
+
+
 
 
 

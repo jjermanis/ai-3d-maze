@@ -18,16 +18,31 @@ Since this game was regenerated from scratch, the UI looks different, and unfort
 The game works, but there are several things to fix before moving on.
 
 
-TODO There are bugs about the rotation and location. Sometimes it will step pass it's square,
-	sometimes it will be in the wall. This needs to be fixed.d
-TODO "The player of the game is a gray arrow." Check that color - it really looks white.
-TODO "The walls are red like bricks." It is very red, off from a brick
-TODO There is character rotation animation that is odd. It often looks right, but sometime
-	flips around the other direction. Fix... are just get rid of the animation.
+version 2 	24 minutes dev	4 minutes code gen	6 minutes test		1 hour 24
+
+There were a lot of refinements to make. Before getting into that, I wanted to get the remaining
+core feature: adding a 3D point of view. The UI switched to two displays. On the right is the same 
+2D maze as in the original. On the left, a 3D point-of-view from where the 2D player is. The first
+attempt looked surprisingly good. Looked good; movement was rough. Two major issues seen. 
+One, the character could walk through walls. Not all walls, but some. And sometimes block 
+by space.
+Two, the character moving forward was off - it went a different direction than it pointed. 
+I described both of the issues in detail and provided them to Chat. It fixed... one of them.
+It now checked the walls correctly. There were still issues moving forward, off by a 90 degree
+angle. I described that to Chat. It fixed it with a one-liner... but added a bug to the 3D view. 
+The 3D view became off by 90 degrees. I described that to Chat. It fixed that with a one-liner. 
+It all works now! Actually playable! Many thing to add, but a nice start for sure. I am impressed 
+with what it developed in limited time.
+
+
+
 TODO Add a new game, new maze button
-TODO I don't know for sure, but it seems like this is a long batch without decisions. Maybe
+TODO I don't know for sure, but it seems like this is a long maze with few decisions. Maybe
 	the maze has to start in a different spot. Maybe a different algorithm should be used.
+TODO "The walls are red like bricks." It is very red, off from a brick.
+	Similar, the 3D should include a brick view, not a big red wall.
+TODO "The player of the game is a gray arrow." Check that color - it really looks white.
 TODO Add the UI to make gradual map views, adding what can be seen.
-TODO Add a 3D view, based on the same map data, should side by side with 2D
+TODO I'm not sure why, or if it's real, but the walls seem a little round. Look into it.
 
 
