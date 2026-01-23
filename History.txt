@@ -49,17 +49,41 @@ seen. This appeara perfect - it behaves as I expected. This, for sure, is a play
 I will proceed with polishing up some UI before publishing Release #1.
 
 
+Version 4	32 minutes dev	4 minutes code gen	5 minutes test		2 hours 28
+DID NOT PROCEED - RETURNING TO VERSION 3 ON NEXT ATTEMPT
+
+The game was working nicely, but the UI was rather abstract. Walls were basic red walls.
+I tried to add brick walls. Not just red bricks - bricks covered in mortar. I asked Chat
+to create this. It REALLY did not work. The code to show the vertical lines was severly
+bugged - it basically made the wall white, almost all mortar. If I removed the vertical
+lines, it would work... to an extent. Mortar straight ahead looks decent. On the side
+walls, they did not lined up well. I reported defects to Chat. 
+It recognized what I reported, and suggested using only horizontal mortar. I
+did not like the idea but I tried it. It was worse: after that change, the horizontal lines
+bent as you got close. I pointed this out and asked for a different solution all together.
+It did suggest a different approach. It had been a ray-per-column renderer. It redesigned
+to a texture-mapped wall. There were quite a few changes; I applied them. It worked, but
+added a whole new defect: vertical gaps in all walls. This looked odd in general and for
+a wall on the edge, it was clear: you could repeatedly see outside through the gaps. This 
+did not work. Maybe there was a marginal change, but it was not fixed.
+I decided to back down from this approach. Next I will try an entirely different way to
+add detail to the walls.
+
+
+
+TODO The walls are a very plain red. Makes it hard to see, especially if just starting to
+	play. Tried changing walls to bricks - it did not work. Try something else.
+	From Chat, "Distance-based darkening" seems best. "Large-scale paneling" and
+	"Clean solid color + lighting" might also work.
+From Chat - exit visibility rules... there is no recognition making it to the end
+From Chat - Add a visible exit in the 3D view
 TODO Add a new game, new maze button
 TODO I don't know for sure, but it seems like this is a long maze with few decisions. Maybe
 	the maze has to start in a different spot. Maybe a different algorithm should be used.
-TODO "The walls are red like bricks." It is very red, off from a brick.
-	Similar, the 3D should include a brick view, not a big red wall.
+From Chat - Add diagonal ray shading for better depth
 TODO "The player of the game is a gray arrow." Check that color - it really looks white.
 TODO I'm not sure why, or if it's real, but the walls seem a little round. Look into it.
-From Chat - exit visibility rules... there is no recognition making it to the end
 From Chat - Lock in this alignment with comments (future-proofing)
-From Chat - Add diagonal ray shading for better depth
-From Chat - Add a visible exit in the 3D view
 From Chat - Add a debug completely open 2D view at start (great for sanity checks)
 
 
