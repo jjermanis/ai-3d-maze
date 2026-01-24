@@ -33,6 +33,8 @@ const SIZE = 20;
 const CELL = 20;
 const FOV = Math.PI / 3;
 const RAYS = 200;
+const WALL_COLOR = { r: 180, g: 30, b: 30 };
+const MAX_LIGHT_DIST = 12;
 
 const maze = [];
 for (let y = 0; y < SIZE; y++) {
@@ -104,18 +106,46 @@ function castRay(angle) {
 }
 
 function draw3D() {
-    ctx3.fillStyle = "#4fc3f7";
-    ctx3.fillRect(0,0,400,200);
-    ctx3.fillStyle = "#2e7d32";
-    ctx3.fillRect(0,200,400,200);
+    ctx3.fillStyle = "#4fc3f7"; // sky
+    ctx3.fillRect(0, 0, 400, 200);
+
+    ctx3.fillStyle = "#2e7d32"; // floor
+    ctx3.fillRect(0, 200, 400, 200);
 
     const baseAngle = player.dir * Math.PI / 2 - Math.PI / 2;
-    for (let i=0;i<RAYS;i++) {
-        const angle = baseAngle + (i/RAYS - 0.5)*FOV;
+
+    for (let i = 0; i < RAYS; i++) {
+        const angle = baseAngle + (i / RAYS - 0.5) * FOV;
+
         const d = castRay(angle);
-        const h = 300 / d;
-        ctx3.fillStyle = "#b71c1c";
-        ctx3.fillRect(i*2, 200-h/2, 2, h);
+
+        // Prevent divide-by-zero
+        const dist = Math.max(d, 0.0001);
+
+        // Wall height
+        const h = 300 / dist;
+
+        // ===== LIGHTING =====
+
+        // Distance-based lighting (clamped)
+        const light =
+            Math.max(
+                0,
+                1 - dist / MAX_LIGHT_DIST
+            );
+
+        let r = WALL_COLOR.r * light;
+        let g = WALL_COLOR.g * light;
+        let b = WALL_COLOR.b * light;
+
+        ctx3.fillStyle = `rgb(${r|0},${g|0},${b|0})`;
+
+        ctx3.fillRect(
+            i * 2,
+            200 - h / 2,
+            2,
+            h
+        );
     }
 }
 

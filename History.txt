@@ -70,21 +70,44 @@ I decided to back down from this approach. Next I will try an entirely different
 add detail to the walls.
 
 
+Version 5	26 minutes dev	5 minutes code gen	7 minutes test		3 hours 6
 
-TODO The walls are a very plain red. Makes it hard to see, especially if just starting to
-	play. Tried changing walls to bricks - it did not work. Try something else.
-	From Chat, "Distance-based darkening" seems best. "Large-scale paneling" and
-	"Clean solid color + lighting" might also work.
+Trying again from last time to improve the appearance of the red walls in the 3D view. Chat
+had proposed four possible approaches. I tried all 4, from the same starting point.
+#2 (yes, I did it in a different order) was Distance-based darkening. Instead of adding any
+material, it would change the color based on distance. The farther the point, the darker it 
+got. The first attempt worked, and worked well. I was tempted to stop here... but I already
+had the idea to try all four options. 
+#1 was Subtle vertical shading. This had a serious defect. Similar to what was tried in
+Version 4 - lots of vertical spaces made it transparent. I asked for a fix - I still had
+some defects. I wasn't interested in continuing to fix: I already had a case that worked well.
+#3 was Large-scale paneling. It had a massive bug - the app crashed. I didn't even bother to
+try and fix - it crashed and I moved on.
+#4 was Clean solid color + lighting. I liked this one too. It was very similar to #2 - it
+used a shade to go darker. Instead of point-to-point, it is based on 3 sub-panels per wall.
+I think I liked this one better. There are pros and cons. For #4 compared to #2, it helps
+show the difference better. It may look a bit more fake, but it helps see the maze better.
+On the downside, the far parts looks VERY dark, compared to #2.
+I have committed #4. Both #2 and #4 were good. I might change a parameter at some point to
+reduce that darkness in the long hall.
+
+
 From Chat - exit visibility rules... there is no recognition making it to the end
 From Chat - Add a visible exit in the 3D view
 TODO Add a new game, new maze button
 TODO I don't know for sure, but it seems like this is a long maze with few decisions. Maybe
 	the maze has to start in a different spot. Maybe a different algorithm should be used.
+	Prim's comes to mind first. Maybe Kruskal's?
 From Chat - Add diagonal ray shading for better depth
 TODO "The player of the game is a gray arrow." Check that color - it really looks white.
+TODO For a long hallway, it gets dark at the end, maybe too dark. Keep it more bright at its
+	longest and/or make the change smaller. (refer to changes in Version 5)
+	Look at the RGB variables in draw3D for how that is calculated.
 TODO I'm not sure why, or if it's real, but the walls seem a little round. Look into it.
 From Chat - Lock in this alignment with comments (future-proofing)
 From Chat - Add a debug completely open 2D view at start (great for sanity checks)
+TODO That "grass" doesn't look like grass - it's plain green. Maybe some texture? Maybe 
+	some differences in that texture based on that distance?s
 
 
 

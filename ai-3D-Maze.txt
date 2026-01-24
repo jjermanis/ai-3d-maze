@@ -18,6 +18,7 @@ Create a single-page app in a single HTML file with the following requirements:
 - The map on the left is a 3D view of the map. The ground is green grass. The walls are red bricks. The skies are blue.
 - On the 3D view of the map, the point of view is from the gray arrow. You cannot see the arrow in the picture - it is the arrow's point of view.
 - On the 3D view of the map, the point of view from the gray arrow is 5 feet tall. The red brick walls are 10 feet tall.
+- On the 3D view of the map, the walls are brightest closest to the arrow. The farther away the wall is from the arrow, the dimmer the wall is shown.
 
 
 
