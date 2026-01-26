@@ -92,8 +92,26 @@ I have committed #4. Both #2 and #4 were good. I might change a parameter at som
 reduce that darkness in the long hall.
 
 
+Version 6	35 minutes dev	4 minutes code gen	4 minutes test		3 hours 49
+DID NOT PROCEED - RETURNING TO VERSION 5 ON NEXT ATTEMPT
+
+In my opinion, the core of the game exists. Now I want to add some smaller details to
+complete a base version of a game. Today, I went for put an exit at the opposite corner
+of the maze. Specifically, an open wall was needed at that opposite corner. Chat provided
+code. After that, the hole was seen on the 2D view, but not the 3D. Root cause is a bit
+difficult to explain. There is the maze itself. Beyond that, there are infinite walls. You
+can remove the wall from the maze... and there is one just on the other side of that. To
+fix, it create a special case where vision is tweak for one specific place. Doing this still
+had the 3D wall issue. Also, it was recognizing the exit was reaching and put up "You Escape!"
+as requested... but at the right, as opposed to bottom. The exit was still not working
+correctly. It had failed a few times, with correction that did not work. I am going to think
+of a different approach.
+
+
 From Chat - exit visibility rules... there is no recognition making it to the end
-From Chat - Add a visible exit in the 3D view
+	Attempt #1 (putting a hole in the wall) did not work; it had several recurring errors.
+	A new attempt: have a special wall that LOOKS like a whole, but can be viewed as a
+	wall with special art?
 TODO Add a new game, new maze button
 TODO I don't know for sure, but it seems like this is a long maze with few decisions. Maybe
 	the maze has to start in a different spot. Maybe a different algorithm should be used.
@@ -107,7 +125,7 @@ TODO I'm not sure why, or if it's real, but the walls seem a little round. Look 
 From Chat - Lock in this alignment with comments (future-proofing)
 From Chat - Add a debug completely open 2D view at start (great for sanity checks)
 TODO That "grass" doesn't look like grass - it's plain green. Maybe some texture? Maybe 
-	some differences in that texture based on that distance?s
+	some differences in that texture based on that distance.
 
 
 
