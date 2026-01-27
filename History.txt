@@ -108,11 +108,29 @@ correctly. It had failed a few times, with correction that did not work. I am go
 of a different approach.
 
 
+Version 7	15 minutes dev	1 minutes code gen	2 minutes test		4 hours 7
+DID NOT PROCEED - RETURNING TO VERSION 5 ON NEXT ATTEMPT
+
+Tried a different approach. Instead of an actual hole in the wall, place a wall that LOOKS
+like a door to the outside. It resolves the problem from Version 6 - resolving the issue of
+having a real hole in the wall, and the surrounding walls. Started by adding a special case:
+in the 2D map, show a hole in the lower-right corner, even though there is a wall there. This
+recommended by Chat - quick, easy, and worked. Then, I added a different kind of wall for the
+exit in 3D view. This did not work well. Best way to describe it is that you couldn't just put
+up a door - the UI was full of slash and the design had to be vertical based. That might have
+worked... but felt like this would be like the similar case, where some UI remained. Stopped
+this relatively quick; thinking about a third option for the exit.
+
+
 From Chat - exit visibility rules... there is no recognition making it to the end
 	Attempt #1 (putting a hole in the wall) did not work; it had several recurring errors.
 	A new attempt: have a special wall that LOOKS like a whole, but can be viewed as a
 	wall with special art?
+	Attempt #2 (putting in a wall that looked like a door) did not work. UI engine only
+	support flat wall, not designs. Maybe try a different color for #3?
 TODO Add a new game, new maze button
+TODO Add option for how big the maze is. The following grid counts would fix exactly in the 2D:
+	1,2,4,5,8,10,16,20,25,40,50,80,100,200,400
 TODO I don't know for sure, but it seems like this is a long maze with few decisions. Maybe
 	the maze has to start in a different spot. Maybe a different algorithm should be used.
 	Prim's comes to mind first. Maybe Kruskal's?
