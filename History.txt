@@ -122,15 +122,33 @@ worked... but felt like this would be like the similar case, where some UI remai
 this relatively quick; thinking about a third option for the exit.
 
 
-From Chat - exit visibility rules... there is no recognition making it to the end
-	Attempt #1 (putting a hole in the wall) did not work; it had several recurring errors.
-	A new attempt: have a special wall that LOOKS like a whole, but can be viewed as a
-	wall with special art?
-	Attempt #2 (putting in a wall that looked like a door) did not work. UI engine only
-	support flat wall, not designs. Maybe try a different color for #3?
+
+Version 8	34 minutes dev	3 minutes code gen	10 minutes test		4 hours 54
+
+The third approach: make the exit like a standard wall, but make it green instead of red.
+Provided this to Chat - it was broken into sections. First was to add a wallColor array.
+Cells already have data in an array - this added colors like it has walls. Second was to
+initialize all wall cells to red, then override the two exit lower-right corner walls to
+green. These have been easy an worked. The third step was to make sure the 2D used these
+colors. Quick, easy, and correct. Last attempt was to get the last step to work. This failed.
+Not inherently. But there were mistakes that were made where the new code did not match
+up to the old code. This is perhaps the most frustrating aspect of ChatGPT - it is like code
+is done "from memory" instead of from storage. I had to ask it to recreate the source file
+from scratch. This reintroduced some bugs. You see through some walls (this was seen several
+builds ago). Asked ChatGPT to correct. After that, the external walls were never seen. Asked
+ChatGPT to correct. Next, it had lost the other feature from the past, where walls looked 
+darker over distance. Finally, it all worked: walls are red, with the exception of the lower-
+right corner being green. If you enter that grid, you get a congrats on the screen.
+For sure I need to code review, and that will be next. Yes, everything works. But there were
+many changes, plenty I think have nothing to do with this feature. Next version will have no
+functional changes - I just need to clean it up.
+
+
+
 TODO Add a new game, new maze button
 TODO Add option for how big the maze is. The following grid counts would fix exactly in the 2D:
 	1,2,4,5,8,10,16,20,25,40,50,80,100,200,400
+TODO When screen shows "You Escaped!" the grids move. No reason those move a pixel.
 TODO I don't know for sure, but it seems like this is a long maze with few decisions. Maybe
 	the maze has to start in a different spot. Maybe a different algorithm should be used.
 	Prim's comes to mind first. Maybe Kruskal's?
@@ -144,6 +162,8 @@ From Chat - Lock in this alignment with comments (future-proofing)
 From Chat - Add a debug completely open 2D view at start (great for sanity checks)
 TODO That "grass" doesn't look like grass - it's plain green. Maybe some texture? Maybe 
 	some differences in that texture based on that distance.
+TODO Someone playing the game would like if the game started at the bottom facing up.
+	Not sure how much that'll help... but worth trying.
 
 
 
