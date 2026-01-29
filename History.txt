@@ -144,6 +144,15 @@ many changes, plenty I think have nothing to do with this feature. Next version 
 functional changes - I just need to clean it up.
 
 
+Version 9	15 minutes dev	0 minutes code gen	7 minutes test		5 hours 16
+
+As indicated in the last version, reviewed the code, comparing to older versions. Tried to
+get formatting to be more consistent. Aside from revert code with no functional changes,
+tried to minimizes cases with small changes. There were some functions with some significant
+changes. I left those as-is: no need to be "optimal" in maintaining format: some functions did
+change quite a bit.
+
+
 
 TODO Add a new game, new maze button
 TODO Add option for how big the maze is. The following grid counts would fix exactly in the 2D:
