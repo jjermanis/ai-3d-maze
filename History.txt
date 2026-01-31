@@ -153,11 +153,27 @@ changes. I left those as-is: no need to be "optimal" in maintaining format: some
 change quite a bit.
 
 
+Version		22 minutes dev	1 minute code gen	3 minutes test		5 hours 42
 
-TODO Add a new game, new maze button
+The grid move a little bit when the "You Escaped!" appears. I think rearranging
+the page to have fixed height for the text spot would address that. I presented to
+Chat. It agreed with my assessment - it was an easy change, laying out where the
+status appears.
+The next step was to add a Reset Maze. This becomes available when the arrow reaches
+the exit. Chat added a button and put it in the right location. That, it did well.
+However, the "You escaped" text appears the left-edge. I will need to revisit it.
+Also, the directions tell me to run the initGame() function, or whatever name it is.
+As it stands, there is no starter logic. I COULD try to do that manually, but I'll
+ask Chat to create it.
+Chat got it correct the first time! I had to code review to make sure, but this
+worked smoothly with no changes.
+Finally, when the button was added, the text (for some reason) switched from
+center to left-justification. I let Chat know. Again, it was resolved perfectly
+on the first try.
+
+
 TODO Add option for how big the maze is. The following grid counts would fix exactly in the 2D:
 	1,2,4,5,8,10,16,20,25,40,50,80,100,200,400
-TODO When screen shows "You Escaped!" the grids move. No reason those move a pixel.
 TODO I don't know for sure, but it seems like this is a long maze with few decisions. Maybe
 	the maze has to start in a different spot. Maybe a different algorithm should be used.
 	Prim's comes to mind first. Maybe Kruskal's?
