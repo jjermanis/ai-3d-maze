@@ -41,10 +41,33 @@ canvas {
     font-size: 14px;
     padding: 6px 12px;
 }
+
+#topRow {
+    width: 816px;              /* same as statusRow */
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+#topRow .spacer {
+    width: 400px;              /* aligns dropdown above 2D */
+}
+
+#sizeSelect {
+    font-size: 14px;
+}
 </style>
 </head>
 <body>
 
+<div id="topRow">
+    <div class="spacer"></div>
+    <select id="sizeSelect">
+        <option value="0">10 x 10</option>
+        <option value="1">16 x 16</option>
+        <option value="2" selected>20 x 20</option>
+    </select>
+</div>
 <div id="container">
     <canvas id="view3d" width="400" height="400"></canvas>
     <canvas id="view2d" width="400" height="400"></canvas>
@@ -55,12 +78,18 @@ canvas {
 </div>
 
 <script>
-const SIZE = 16;
-const CELL = 25;
+let SIZE;
+let CELL;
 const FOV = Math.PI / 3;
 const RAYS = 200;
 const DEFAULT_WALL_COLOR = { r:180, g:30, b:30 };
 const MAX_LIGHT_DIST = 12;
+const SIZE_OPTIONS = [10, 16, 20];
+const CELL_OPTIONS = [40, 25, 20];
+let sizeDropDownHasFocus = false;
+let sizeIndex = 2;
+SIZE = SIZE_OPTIONS[sizeIndex];
+CELL = CELL_OPTIONS[sizeIndex];
 
 // Core state (allocated once)
 const maze = [];
@@ -79,6 +108,7 @@ const ctx3 = view3d.getContext("2d");
 const ctx2 = view2d.getContext("2d");
 const statusEl = document.getElementById("status");
 const resetBtn = document.getElementById("resetBtn");
+const sizeSelect = document.getElementById("sizeSelect");
 
 // DFS maze generation
 function dfs(x, y) {
@@ -247,6 +277,7 @@ function draw2D() {
    INPUT / LOOP
    ============================ */
 document.addEventListener("keydown", e => {
+    if (sizeDropDownHasFocus) return;
     if (player.escaped) return;
     if (e.key==="ArrowLeft") player.dir = (player.dir+3)%4;
     if (e.key==="ArrowRight") player.dir = (player.dir+1)%4;
@@ -265,6 +296,25 @@ document.addEventListener("keydown", e => {
 });
 
 resetBtn.addEventListener("click", initGame);
+
+sizeSelect.addEventListener("change", () => {
+    sizeIndex = Number(sizeSelect.value);
+
+    SIZE = SIZE_OPTIONS[sizeIndex];
+    CELL = CELL_OPTIONS[sizeIndex];
+
+    initGame();
+
+    sizeSelect.blur();
+});
+
+sizeSelect.addEventListener("focus", () => {
+    sizeDropDownHasFocus = true;
+});
+
+sizeSelect.addEventListener("blur", () => {
+    sizeDropDownHasFocus = false;
+});
 
 function loop() {
     draw3D();

@@ -6,8 +6,12 @@ Create a single-page app in a single HTML file with the following requirements:
 - The exit is at the lower-right corner of the grid.
 - To create the maze on each game, it uses the Depth First Search. The elements that block paths in the maze are referred to as walls.
 - Every square in the maze should be reachable, due to completion of Depth First Search.
+- For the layout of the screen, there are two maps in the middle of the screen.
 - There are two maps shown on the screen. They are different views of the same map.
 - The map on the right is a 2D view of the map. The view looks like a typical 2D map. The ground is green like grass. The walls are red like bricks.
+- The map on the left is a 3D view of the map. The ground is green grass. The walls are red bricks. The skies are blue.
+- There is a dropdown menu above the upper-right corner of the 2D view. It allows the size of the cell grid to be changed.
+- There is a button below the lower-right corner of the 2D view. It is labeled "Reset Maze". At the beginning of each game the button is disabled.
 - Controls are based on the 2D view on the right.
 - The player of the game is a gray arrow. The tip of the arrow points forward.
 - At the beginning, players will not see the entire maze on the 2D grid. At the beginning, all the squares show as gray.
@@ -21,6 +25,8 @@ Create a single-page app in a single HTML file with the following requirements:
 - On the 3D view of the map, the walls are brightest closest to the arrow. The farther away the wall is from the arrow, the dimmer the wall is shown.
 - The external walls (bottom and right) on the exit grid are colored green.
 - When the arrow comes to the exit grid, the center below the views says: You Escape! The arrow is no longer seen.
+- When the arrow comes to the exit grid, the Reset Maze button is enabled.
+- Clicking the Reset Maze button starts a new game. A new maze is generated, the arrow moves the upper-left corner, the Reset Maze button is disabled.
 
 
 

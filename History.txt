@@ -153,7 +153,7 @@ changes. I left those as-is: no need to be "optimal" in maintaining format: some
 change quite a bit.
 
 
-Version		22 minutes dev	1 minute code gen	3 minutes test		5 hours 42
+Version	10	22 minutes dev	1 minute code gen	3 minutes test		5 hours 42
 
 The grid move a little bit when the "You Escaped!" appears. I think rearranging
 the page to have fixed height for the text spot would address that. I presented to
@@ -172,7 +172,40 @@ center to left-justification. I let Chat know. Again, it was resolved perfectly
 on the first try.
 
 
-TODO Add option for how big the maze is. The following grid counts would fix exactly in the 2D:
+Version 11	31 minutes dev	3 minutes code gen	4 minutes test		6 hours 20
+
+I wanted to add a drop-down menu that allows the user to change the size of the maze.
+This was reasonably complicated to specify. This is a brief version of what I specified:
+I want to add a drop-down menu, above the upper-right corner of the 2D view. 
+This dropdown changes the number of cells in the maze. There are two global 
+variables that exist. SIZE is the number of cells on both the X and Y axis. 
+CELL is the number of pixels used in the 2D view. Right now, there are const 
+There will be an array of the SIZE values. These will be [10, 16, 20]. There 
+will be an array of the CELL values. These will be [40, 25, 20]. When the 
+dropdown menu selection is made and changes, it is like doing a reset: it 
+changes the size of the variables and resets the game.
+The first step that Chat provide was placing the dropdown menu. That had a bug: the drop-down
+and 2D were placed next to the 3D. This made the 2D smaller. I corrected it by realigning
+moving the drop-down above the maze view - this is similar to what is done with the reset
+button.
+The next step Chat provided was to set the data for a size selection change. This was simple
+and correct. It didn't actually make the change, but it set the data correctly.
+The final step Chat provided was to enable the data change. It make a fairly extensive set
+of code changes. This was extraneous - all it needed was to call the initGame() button. That
+was done, and it worked!
+There was a small edge case. If you open the drop-down, and either don't pick and item and 
+close it, or you pick the same item (no change), the drop-down menu retains focus. After that
+when you play the game on your keyboard, since the drop-down had focus, attempt to move the
+arrow would instead change the size. A couple attempts were made to fix this. Neither worked:
+one made it worse, one still had the same defect. Since this is an edge case, for now I will
+commit with this defect. You can workaround by clicking outside the drop-down menu. This is
+not fun, but it works. I will try to resolve later.
+
+
+DEFECT If you drop-down the maze size without changing the size, the drop-down will retain 
+	focus and accept arrow movement as drop-down input.
+	See if there are more attempts. That said, switching to a modal dialog would address.
+TODO Expand the possible maze sizes. The following grid counts would fix exactly in the 2D:
 	1,2,4,5,8,10,16,20,25,40,50,80,100,200,400
 TODO I don't know for sure, but it seems like this is a long maze with few decisions. Maybe
 	the maze has to start in a different spot. Maybe a different algorithm should be used.
