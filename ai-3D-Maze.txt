@@ -10,7 +10,8 @@ Create a single-page app in a single HTML file with the following requirements:
 - There are two maps shown on the screen. They are different views of the same map.
 - The map on the right is a 2D view of the map. The view looks like a typical 2D map. The ground is green like grass. The walls are red like bricks.
 - The map on the left is a 3D view of the map. The ground is green grass. The walls are red bricks. The skies are blue.
-- There is a dropdown menu above the upper-right corner of the 2D view. It allows the size of the cell grid to be changed.
+- There is a button above the upper-right corner of the 2D view. It is labeled "Change Map Size...". It opens a modal dialog.
+- The modal dialog allows the size of the cell grid to be changed.
 - There is a button below the lower-right corner of the 2D view. It is labeled "Reset Maze". At the beginning of each game the button is disabled.
 - Controls are based on the 2D view on the right.
 - The player of the game is a gray arrow. The tip of the arrow points forward.

@@ -202,9 +202,37 @@ commit with this defect. You can workaround by clicking outside the drop-down me
 not fun, but it works. I will try to resolve later.
 
 
-DEFECT If you drop-down the maze size without changing the size, the drop-down will retain 
-	focus and accept arrow movement as drop-down input.
-	See if there are more attempts. That said, switching to a modal dialog would address.
+Version 12	19 minutes dev	2 minutes code gen	4 minutes test		6 hours 45
+
+The dropdown menu seemed like it would often have side effects. Maybe it could be resolved, for
+getting rid of dropdown menu focus... but I wanted to try a different approach that would make
+focus more clear. Instead of the dropdown menu, I changed it to a button that would open a modal
+dialog to change the size. The same options would be in the dialog. Once a change is made, the
+user can click OK to apply it. They can click Cancel to ignore and resume.
+The first attempt by Chat was to update the HTML. It provided the changes. They were visually 
+out-of-date from the current code; it had many defects. I sent that and asked Chat to try again.
+Side note: after this completing this becomes easy. There were multiple defects - all were quick 
+and easy to resolve.
+With the fresh code, the first step was to update the HTML. It removed the HTML related to
+the dropdown (as expected). Outside of the HTML, there was code in reference to that dropdown.
+I removed them - easy to identify and resolve, no help from Chat.
+The next step from Chat was to add the modal. No changes (yet) just its presence. That was easy
+to apply.
+The next step was to add handler function to the modal. There was a different functional name
+accessed in the Chat generated code. Again, easy to resolve.
+The next step was to build out the UI functionality within the modal. Easy, no defects.
+The final step was apply the change set in the modal. It did not work. That was also an
+easily resolvable issue. There was a check that would not work as-is: a change it added 
+would not have happened. It was easy to fix: I removed it. The function itself was blocked by 
+the state - the functional would not be invokable without the check being true.
+After all of this, it works!
+We are very likely ready for a release at this point. I will review the item list to confirm.
+
+
+TODO The buttons for Change Map Size and Reset Maze look slightly different. They should have
+	the same style. I'd use Reset Maze as the base.
+TODO The gray arrow since does not change with the size of a grid. Try making it dynamic, to
+	size as a proportion of the arrow and grid.
 TODO Expand the possible maze sizes. The following grid counts would fix exactly in the 2D:
 	1,2,4,5,8,10,16,20,25,40,50,80,100,200,400
 TODO I don't know for sure, but it seems like this is a long maze with few decisions. Maybe

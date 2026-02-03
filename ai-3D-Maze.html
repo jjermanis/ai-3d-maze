@@ -56,17 +56,42 @@ canvas {
 #sizeSelect {
     font-size: 14px;
 }
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modalContent {
+    background: #222;
+    color: white;
+    padding: 20px 28px;
+    border: 2px solid #555;
+    min-width: 240px;
+}
+
+.modalButtons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 16px;
+}
+
 </style>
 </head>
 <body>
 
 <div id="topRow">
     <div class="spacer"></div>
-    <select id="sizeSelect">
-        <option value="0">10 x 10</option>
-        <option value="1">16 x 16</option>
-        <option value="2" selected>20 x 20</option>
-    </select>
+    <button id="changeSizeBtn">Change Map Size...</button>
 </div>
 <div id="container">
     <canvas id="view3d" width="400" height="400"></canvas>
@@ -75,6 +100,32 @@ canvas {
 <div id="statusRow">
     <div id="status"></div>
     <button id="resetBtn" disabled>Reset Maze</button>
+</div>
+
+<div id="sizeModal" class="modal hidden">
+    <div class="modalContent">
+        <h3>Select Map Size</h3>
+
+        <label>
+            <input type="radio" name="mapSize" value="0">
+            10 × 10
+        </label><br>
+
+        <label>
+            <input type="radio" name="mapSize" value="1">
+            16 × 16
+        </label><br>
+
+        <label>
+            <input type="radio" name="mapSize" value="2">
+            20 × 20
+        </label>
+
+        <div class="modalButtons">
+            <button id="sizeOkBtn" disabled>OK</button>
+            <button id="sizeCancelBtn">Cancel</button>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -88,6 +139,7 @@ const SIZE_OPTIONS = [10, 16, 20];
 const CELL_OPTIONS = [40, 25, 20];
 let sizeDropDownHasFocus = false;
 let sizeIndex = 2;
+let pendingSizeIndex = sizeIndex;
 SIZE = SIZE_OPTIONS[sizeIndex];
 CELL = CELL_OPTIONS[sizeIndex];
 
@@ -108,7 +160,11 @@ const ctx3 = view3d.getContext("2d");
 const ctx2 = view2d.getContext("2d");
 const statusEl = document.getElementById("status");
 const resetBtn = document.getElementById("resetBtn");
-const sizeSelect = document.getElementById("sizeSelect");
+const changeSizeBtn = document.getElementById("changeSizeBtn");
+const sizeModal = document.getElementById("sizeModal");
+const sizeOkBtn = document.getElementById("sizeOkBtn");
+const sizeCancelBtn = document.getElementById("sizeCancelBtn");
+const sizeRadios = document.querySelectorAll('input[name="mapSize"]');
 
 // DFS maze generation
 function dfs(x, y) {
@@ -273,6 +329,16 @@ function draw2D() {
     }
 }
 
+function syncSizeRadios() {
+    sizeRadios.forEach(radio => {
+        radio.checked = (Number(radio.value) === sizeIndex);
+    });
+}
+
+function updateSizeOkButton() {
+    sizeOkBtn.disabled = (pendingSizeIndex === sizeIndex);
+}
+
 /* ============================
    INPUT / LOOP
    ============================ */
@@ -295,26 +361,45 @@ document.addEventListener("keydown", e => {
     }
 });
 
-resetBtn.addEventListener("click", initGame);
+changeSizeBtn.addEventListener("click", () => {
+    pendingSizeIndex = sizeIndex;
+    syncSizeRadios();
+    updateSizeOkButton();
+    sizeModal.classList.remove("hidden");
+    changeSizeBtn.blur();
+});
 
-sizeSelect.addEventListener("change", () => {
-    sizeIndex = Number(sizeSelect.value);
+sizeRadios.forEach(radio => {
+    radio.addEventListener("change", () => {
+        pendingSizeIndex = Number(radio.value);
+        updateSizeOkButton();
+    });
+});
 
+sizeOkBtn.addEventListener("click", () => {
+    sizeIndex = pendingSizeIndex;
     SIZE = SIZE_OPTIONS[sizeIndex];
     CELL = CELL_OPTIONS[sizeIndex];
 
     initGame();
 
-    sizeSelect.blur();
+    sizeModal.classList.add("hidden");
+    sizeOkBtn.blur();
 });
 
-sizeSelect.addEventListener("focus", () => {
-    sizeDropDownHasFocus = true;
+sizeCancelBtn.addEventListener("click", () => {
+    sizeModal.classList.add("hidden");
+    changeSizeBtn.blur();
 });
 
-sizeSelect.addEventListener("blur", () => {
-    sizeDropDownHasFocus = false;
+sizeModal.addEventListener("click", (e) => {
+    if (e.target === sizeModal) {
+        sizeModal.classList.add("hidden");
+        changeSizeBtn.blur();
+    }
 });
+
+resetBtn.addEventListener("click", initGame);
 
 function loop() {
     draw3D();
