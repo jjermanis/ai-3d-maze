@@ -229,8 +229,20 @@ After all of this, it works!
 We are very likely ready for a release at this point. I will review the item list to confirm.
 
 
-TODO The buttons for Change Map Size and Reset Maze look slightly different. They should have
-	the same style. I'd use Reset Maze as the base.
+Version 14 	9 minutes	1 minutes code gen	1 minute test		6 hours 56
+
+Minor issue: the two buttons (Change Map Size and Reset Maze) looks slightly different. I wanted
+Change Map Size to save the same style as Reset Maze. I asked Chat to address this. It created 
+the first version. This was bad: Change Map Size disappeared. It is because are in different divs.
+I thought the way to resolve was to get the divs to match; I asked Chat for advice. The advice
+was not totally change both, but to add necessary fields. I did this. That worked better... to 
+and extent. There was no vertical space allocated for Change Map Size - it was drawn over the
+2D corner. That fixed by myself: I added height to that div. That worked: Chat confirmed the
+approach.
+
+Version 14 is Release #1
+
+
 TODO The gray arrow since does not change with the size of a grid. Try making it dynamic, to
 	size as a proportion of the arrow and grid.
 TODO Expand the possible maze sizes. The following grid counts would fix exactly in the 2D:

@@ -34,7 +34,7 @@ canvas {
     line-height: 24px;
 }
 
-#resetBtn {
+.ui-button {
     position: absolute;
     right: 0;
     top: 0;
@@ -47,6 +47,8 @@ canvas {
     display: flex;
     justify-content: space-between;
     margin-bottom: 6px;
+    height: 32px;
+    position: relative;
 }
 
 #topRow .spacer {
@@ -56,6 +58,13 @@ canvas {
 #sizeSelect {
     font-size: 14px;
 }
+
+#changeSizeBtn {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
 .modal {
     position: fixed;
     inset: 0;
@@ -91,7 +100,7 @@ canvas {
 
 <div id="topRow">
     <div class="spacer"></div>
-    <button id="changeSizeBtn">Change Map Size...</button>
+    <button id="changeSizeBtn" class="ui-button">Change Map Size...</button>
 </div>
 <div id="container">
     <canvas id="view3d" width="400" height="400"></canvas>
@@ -99,7 +108,7 @@ canvas {
 </div>
 <div id="statusRow">
     <div id="status"></div>
-    <button id="resetBtn" disabled>Reset Maze</button>
+    <button id="resetBtn" class="ui-button" disabled>Reset Maze</button>
 </div>
 
 <div id="sizeModal" class="modal hidden">
