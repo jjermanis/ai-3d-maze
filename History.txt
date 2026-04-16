@@ -45,8 +45,7 @@ up: it seems to allow include 1 pixel behind the last wall. My theory was that w
 for how far a user can see on the 3D screen, would keep going until it crossed a wall. It 
 would add all of those to the 2D INCLUDING the last one past the wall. I wrote this up to
 Chat. It agree, and rewrote to check that a wall has been passed before asking then to be
-seen. This appeara perfect - it behaves as I expected. This, for sure, is a playable game.
-I will proceed with polishing up some UI before publishing Release #1.
+seen. This appears to polish up some UI before publishing Release #1.
 
 
 Version 4	32 minutes dev	4 minutes code gen	5 minutes test		2 hours 28
@@ -231,18 +230,28 @@ We are very likely ready for a release at this point. I will review the item lis
 
 Version 14 	9 minutes	1 minutes code gen	1 minute test		6 hours 56
 
-Minor issue: the two buttons (Change Map Size and Reset Maze) looks slightly different. I wanted
+Minor issue: the two buttons (Change Map Size and Reset Maze) look slightly different. I wanted
 Change Map Size to save the same style as Reset Maze. I asked Chat to address this. It created 
-the first version. This was bad: Change Map Size disappeared. It is because are in different divs.
-I thought the way to resolve was to get the divs to match; I asked Chat for advice. The advice
-was not totally change both, but to add necessary fields. I did this. That worked better... to 
-and extent. There was no vertical space allocated for Change Map Size - it was drawn over the
-2D corner. That fixed by myself: I added height to that div. That worked: Chat confirmed the
-approach.
+the first version. This was bad: Change Map Size disappeared. It is because the buttons are in
+different divs. I thought the way to resolve was to get the divs to match; I asked Chat for advice. 
+The advice was not to totally change both, but to add necessary fields. I did this. That worked 
+better... to an extent. There was no vertical space allocated for Change Map Size - it was drawn 
+over the 2D corner. I fixed that by myself: I added height to that div. That worked: Chat 
+confirmed the approach.
 
 Version 14 is Release #1
 
 
+Version 15	8 minutes	0 minutes code gen	1 minute test		7 hours 5
+
+I added the MIT License link to the page. This one had a different issue: the MIT License
+link was not available. It was because other apps define a default color, but not this one.
+I added a specific color for this link. This worked.
+I added to the process text on the website to check for this case.
+
+
+TODO add emoji
+TODO support playing on mobile. Controls are simple, maybe just add buttons for the three buttons,
 TODO The gray arrow since does not change with the size of a grid. Try making it dynamic, to
 	size as a proportion of the arrow and grid.
 TODO Expand the possible maze sizes. The following grid counts would fix exactly in the 2D:
